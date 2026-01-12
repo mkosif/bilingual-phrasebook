@@ -12,7 +12,7 @@ export interface PhrasesGroup {
 const GREETINGS_PHRASES: PhraseModel[] = [
   { id: 1, text: $r('app.string.greeting_hello') },
   { id: 2, text: $r('app.string.greeting_good_morning') },
-  { id: 3, text: $r('app.string.greeting_good_night') },
+  { id: 3, text: $r('app.string.greeting_good_night') }
 ]
 
 const BASIC_PHRASES: PhraseModel[] = [

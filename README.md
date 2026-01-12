@@ -10,10 +10,10 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
 # Preview
 
 <div>
-    <img src="screenshots/preview_en_01.png" width="24%">
-    <img src="screenshots/preview_en_02.png" width="24%">
-    <img src="screenshots/preview_ar_01.png" width="24%">
-    <img src="screenshots/preview_ar_02.png" width="24%">
+  <img src="./screenshots/preview_en_01.png" width="24%">
+  <img src="./screenshots/preview_en_02.png" width="24%">
+  <img src="./screenshots/preview_ar_01.png" width="24%">
+  <img src="./screenshots/preview_ar_02.png" width="24%">
 </div>
 
 # Use Cases

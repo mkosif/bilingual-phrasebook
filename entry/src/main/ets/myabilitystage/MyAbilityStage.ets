@@ -15,6 +15,6 @@ export default class MyAbilityStage extends AbilityStage {
   }
 
   onConfigurationUpdate(newConfig: Configuration): void {
-    Logger.info(`MyAbilityStage: onConfigurationUpdate called with new config language: '${newConfig.language}'`)
+    Logger.info(`MyAbilityStage: onConfigurationUpdate called with new config language: ${newConfig.language}`)
   }
 }

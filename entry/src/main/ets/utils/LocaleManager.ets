@@ -51,7 +51,7 @@ export default class LocaleManager implements Injectable {
       i18n.System.setAppPreferredLanguage(newLocale);
       this.setCurrentLocale(newLocale);
       await this.setAppLocale(newLocale);
-      Logger.info(`LocaleManager: locale changed to '${newLocale}'`)
+      Logger.info(`LocaleManager: locale changed to: ${newLocale}`)
     } catch (error) {
       let err: BusinessError = error as BusinessError;
       Logger.error(`LocaleManager: call System.setAppPreferredLanguage failed, error code: ${err.code}, message: ${err.message}.`)

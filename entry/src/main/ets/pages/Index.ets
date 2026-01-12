@@ -9,7 +9,7 @@ import {
   ArcButton,
   ArcButtonOptions,
   ColorMetrics,
-  ArcButtonStyleMode,
+  ArcButtonStyleMode
 } from '@kit.ArkUI';
 import { PhraseItem, PhraseItemType } from '../viewmodel/PhrasesDataSource';
 import { PhrasesViewModel } from '../viewmodel/PhrasesViewModel';
@@ -60,14 +60,14 @@ struct Index {
   private onLocaleToggled: () => void = () => {
     this.viewModel.toggleLocale();
     this.tabBar1.update({
-      localeCode: this.viewModel.appLocale,
+      localeCode: this.viewModel.appLocale
     })
   }
   private tabBar1: ComponentContent<HeaderParamsInterface> =
     new ComponentContent<HeaderParamsInterface>(
       this.context,
       wrapBuilder(buildHeader), {
-      localeCode: this.viewModel.appLocale,
+      localeCode: this.viewModel.appLocale
     });
   private bottomOptions = new ArcButtonOptions({
     label: $r('app.string.toggle_language'),

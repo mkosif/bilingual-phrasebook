@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.hmosdemos.bilingualphrasebook",
+    "bundleName": "com.hmosdemos.wearable.bilingual_phrasebook",
     "vendor": "hmosdemos",
     "versionCode": 1000000,
     "versionName": "1.0.0",

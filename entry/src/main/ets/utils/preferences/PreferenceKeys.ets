@@ -1,3 +1,3 @@
 export enum PreferenceKeys {
-  AppLocale = 'app_locale',
+  AppLocale = 'app_locale'
 }
