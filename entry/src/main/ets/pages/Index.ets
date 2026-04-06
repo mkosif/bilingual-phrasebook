@@ -11,7 +11,7 @@ import {
   ColorMetrics,
   ArcButtonStyleMode
 } from '@kit.ArkUI';
-import { PhraseItem, PhraseItemType } from '../viewmodel/PhrasesDataSource';
+import { PhraseItem, PhraseItemType, PhrasesDataSource } from '../viewmodel/PhrasesDataSource';
 import { PhrasesViewModel } from '../viewmodel/PhrasesViewModel';
 import { PhraseCardComponent } from '../components/PhraseCardComponent';
 import { SizeConstants } from '../constants/SizeConstants';
@@ -57,11 +57,9 @@ function buildHeader(params: HeaderParamsInterface) {
 struct Index {
   private context: UIContext = this.getUIContext();
   private viewModel: PhrasesViewModel = new PhrasesViewModel();
+  private dataSource: PhrasesDataSource = this.viewModel.loadDataSource();
   private onLocaleToggled: () => void = () => {
     this.viewModel.toggleLocale();
-    this.tabBar1.update({
-      localeCode: this.viewModel.appLocale
-    })
   }
   private tabBar1: ComponentContent<HeaderParamsInterface> =
     new ComponentContent<HeaderParamsInterface>(
@@ -79,10 +77,20 @@ struct Index {
     onClick: this.onLocaleToggled
   })
 
+  aboutToAppear(): void {
+    this.viewModel.setOnLocaleChanged((locale) => {
+      this.tabBar1.update({ localeCode: locale });
+    });
+  }
+
+  aboutToDisappear(): void {
+    this.viewModel.clearOnLocaleChanged();
+  }
+
   build() {
     Stack() {
       ArcList({ initialIndex: 0, header: this.tabBar1 }) {
-        LazyForEach(this.viewModel.loadDataSource(), (item: PhraseItem, index: number) => {
+        LazyForEach(this.dataSource, (item: PhraseItem, index: number) => {
           if (item.type === PhraseItemType.TITLE) {
             ArcListItem() {
               PhraseTitleComponent({

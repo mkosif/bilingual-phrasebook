@@ -10,6 +10,8 @@ import { PreferenceKeys } from './preferences/PreferenceKeys';
 
 export default class LocaleManager implements Injectable {
   private locale: AppLocale = AppLocale.EN
+  private localeResolved: boolean = false;
+  private onLocaleChangedCallback?: (locale: AppLocale) => void;
   @Resolve(PreferencesManager)
   private pm?: PreferencesManager;
 
@@ -24,10 +26,41 @@ export default class LocaleManager implements Injectable {
         await this.updateAppLocale(appLocaleFromString(appLocaleStr))
       } else {
         this.setCurrentLocale(appLocaleFromString(appLocaleStr));
+        this.localeResolved = true;
+        this.onLocaleChangedCallback?.(this.locale);
       }
     }).catch((err: BusinessError) => {
       Logger.error(`LocaleManager: updating app-local failed, error code: ${err.code}, message: ${err.message}.`)
     });
+  }
+
+  /**
+   * Registers a persistent observer that fires on every locale change, including initial async resolution.
+   * If initialization has already completed, the callback is invoked synchronously with the current locale.
+   */
+  setOnLocaleChanged(callback: (locale: AppLocale) => void): void {
+    this.onLocaleChangedCallback = callback;
+    if (this.localeResolved) {
+      callback(this.locale);
+    }
+  }
+
+  clearOnLocaleChanged(): void {
+    this.onLocaleChangedCallback = undefined;
+  }
+
+  /**
+   * Called when the system language changes externally (e.g. from watch settings).
+   * Applies the new locale only if it differs from the current one.
+   */
+  async onSystemLocaleChanged(languageTag: string): Promise<void> {
+    if (!languageTag) {
+      return;
+    }
+    const newLocale = appLocaleFromString(languageTag);
+    if (newLocale !== this.locale) {
+      await this.updateAppLocale(newLocale);
+    }
   }
 
   get appLocale(): AppLocale {
@@ -50,6 +83,8 @@ export default class LocaleManager implements Injectable {
       // Set the preferred language of the application to newLocale.
       i18n.System.setAppPreferredLanguage(newLocale);
       this.setCurrentLocale(newLocale);
+      this.localeResolved = true;
+      this.onLocaleChangedCallback?.(newLocale);
       await this.setAppLocale(newLocale);
       Logger.info(`LocaleManager: locale changed to: ${newLocale}`)
     } catch (error) {
@@ -66,6 +101,7 @@ export default class LocaleManager implements Injectable {
     await this.pm?.setValue(PreferenceKeys.AppLocale, newLocale)
   }
 
-  onDispose() {
+  onDispose(): void {
+    this.onLocaleChangedCallback = undefined;
   }
 }

@@ -23,6 +23,10 @@
     {
       "name": "card_text_color",
       "value": "#FDF5AA"
+    },
+    {
+      "name": "phrase_title_color",
+      "value": "#FDF5AA"
     }
   ]
 }

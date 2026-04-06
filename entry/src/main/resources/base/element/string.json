@@ -21,10 +21,6 @@
       "value": "Phrases"
     },
     {
-      "name": "app_language",
-      "value": "Language:"
-    },
-    {
       "name": "toggle_language",
       "value": "Toggle Language"
     },

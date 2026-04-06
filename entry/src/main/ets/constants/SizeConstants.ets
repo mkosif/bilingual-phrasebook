@@ -16,10 +16,6 @@ export class SizeConstants {
    */
   static readonly FULL_HEIGHT_PERCENT: string = '100%';
   /**
-   * 80% percent value.
-   */
-  static readonly PERCENT_80 = '80%';
-  /**
    * 30% percent value.
    */
   static readonly PERCENT_30 = '30%';
