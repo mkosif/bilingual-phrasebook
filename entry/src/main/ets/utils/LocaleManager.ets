@@ -11,6 +11,7 @@ import { PreferenceKeys } from './preferences/PreferenceKeys';
 export default class LocaleManager implements Injectable {
   private locale: AppLocale = AppLocale.EN
   private localeResolved: boolean = false;
+  private isUpdating: boolean = false;
   private onLocaleChangedCallback?: (locale: AppLocale) => void;
   @Resolve(PreferencesManager)
   private pm?: PreferencesManager;
@@ -54,7 +55,7 @@ export default class LocaleManager implements Injectable {
    * Applies the new locale only if it differs from the current one.
    */
   async onSystemLocaleChanged(languageTag: string): Promise<void> {
-    if (!languageTag) {
+    if (!languageTag || this.isUpdating) {
       return;
     }
     const newLocale = appLocaleFromString(languageTag);
@@ -79,8 +80,11 @@ export default class LocaleManager implements Injectable {
   }
 
   private async updateAppLocale(newLocale: AppLocale) {
+    this.isUpdating = true;
     try {
       // Set the preferred language of the application to newLocale.
+      // NOTE: setAppPreferredLanguage triggers onConfigurationUpdate, which calls onSystemLocaleChanged.
+      // The isUpdating guard above prevents the resulting re-entrant call from looping back here.
       i18n.System.setAppPreferredLanguage(newLocale);
       this.setCurrentLocale(newLocale);
       this.localeResolved = true;
@@ -90,6 +94,8 @@ export default class LocaleManager implements Injectable {
     } catch (error) {
       let err: BusinessError = error as BusinessError;
       Logger.error(`LocaleManager: call System.setAppPreferredLanguage failed, error code: ${err.code}, message: ${err.message}.`)
+    } finally {
+      this.isUpdating = false;
     }
   }
 

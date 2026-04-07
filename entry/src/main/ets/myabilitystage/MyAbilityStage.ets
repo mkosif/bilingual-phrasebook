@@ -18,10 +18,14 @@ export default class MyAbilityStage extends AbilityStage {
   onConfigurationUpdate(newConfig: Configuration): void {
     Logger.info(`MyAbilityStage: onConfigurationUpdate called with new config language: ${newConfig.language}`)
     if (newConfig.language && newConfig.language.length > 0) {
-      const localeManager = this.registry?.get<LocaleManager>('LocaleManager::default');
-      localeManager?.onSystemLocaleChanged(newConfig.language).catch((err: Error) => {
-        Logger.error(`MyAbilityStage: onSystemLocaleChanged failed: ${err.message}`)
-      });
+      try {
+        const localeManager = this.registry?.get<LocaleManager>('LocaleManager::default');
+        localeManager?.onSystemLocaleChanged(newConfig.language).catch((err: Error) => {
+          Logger.error(`MyAbilityStage: onSystemLocaleChanged failed: ${err.message}`)
+        });
+      } catch (error) {
+        Logger.error(`MyAbilityStage: failed to get LocaleManager: ${(error as Error).message}`)
+      }
     }
   }
 }

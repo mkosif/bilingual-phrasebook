@@ -1,4 +1,4 @@
-import { PhraseModel, PHRASES_GROUPS } from '../model/PhraseModel'
+import { PhraseModel, PhrasesGroup, PHRASES_GROUPS } from '../model/PhraseModel'
 import { Resolve } from '../registry/ServiceRegistry';
 import LocaleManager from '../utils/LocaleManager';
 import { AppLocale } from '../model/AppLocale';
@@ -9,9 +9,10 @@ export class PhrasesViewModel {
   @Resolve(LocaleManager)
   localManager?: LocaleManager;
 
-  private readonly dataSource: PhrasesDataSource = new PhrasesDataSource(PHRASES_GROUPS);
+  private readonly dataSource: PhrasesDataSource =
+    new PhrasesDataSource(PHRASES_GROUPS, this.localManager?.appLocale ?? AppLocale.EN);
 
-  public loadPhrases(): PhraseModel[] {
+  public loadPhrases(): PhrasesGroup[] {
     return PHRASES_GROUPS;
   }
 
@@ -19,8 +20,8 @@ export class PhrasesViewModel {
     return this.dataSource;
   }
 
-  public get appLocale() {
-    return this.localManager?.appLocale;
+  public get appLocale(): AppLocale {
+    return this.localManager?.appLocale ?? AppLocale.EN;
   }
 
   public toggleLocale() {
@@ -28,12 +29,13 @@ export class PhrasesViewModel {
   }
 
   public setOnLocaleChanged(callback: (locale: AppLocale) => void): void {
-    this.localManager?.setOnLocaleChanged(callback);
+    this.localManager?.setOnLocaleChanged((locale) => {
+      this.dataSource.updateLocale(locale);
+      callback(locale);
+    });
   }
 
   public clearOnLocaleChanged(): void {
     this.localManager?.clearOnLocaleChanged();
   }
 }
-
-
