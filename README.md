@@ -5,6 +5,7 @@
 A simple bilingual phrasebook app for HarmonyOS Next written in ArkTS.
 
 BilingualPhrasebook is a multilingual app designed to help users quickly access common phrases in both **Arabic** and **English**.
+Each phrase card displays both languages simultaneously — the toggle button switches which language appears as primary (larger, top) and which appears as secondary (smaller, below).
 It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapts the UI direction based on the selected system locale.
 
 # Preview
@@ -15,6 +16,8 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
   <img src="./screenshots/preview_ar_01.png" width="24%">
   <img src="./screenshots/preview_ar_02.png" width="24%">
 </div>
+
+> **Note:** Screenshots show the single-language UI from an earlier version. The current UI displays both languages on each card simultaneously.
 
 # Use Cases
 
@@ -38,10 +41,12 @@ Bilingual Phrasebook helps users quickly find and practice essential phrases in 
 
 This app utilizes the **Localization Kit** to manage multi-language content:
 
-- Uses `$r('app.string.key')` for fetching localized string resources
-- Arabic (RTL) and English (LTR) string files are defined under `resources/base/element/string.json`
-  and `resources/ar/element/string.json`
+- **Phrase content** (bilingual pairs) is defined statically in `PhraseModel.ets` as `{ en, ar }` string pairs — both languages are loaded at once so they can be displayed simultaneously on each card
+- **UI strings** (app title, button labels, category names) are fetched via `$r('app.string.key')` from resource files:
+  - Default (English/LTR): `resources/base/element/string.json`
+  - Arabic (RTL override): `resources/ar/element/string.json`
 - Locale switching is handled within the app using `i18n.System` and User-Preferences `PreferencesManager`
+- `onConfigurationUpdate` in `MyAbilityStage` propagates system-level language changes back into the app
 - Custom `LocaleManager` provides helpers for accessing or reacting to the current language
 
 Example file:

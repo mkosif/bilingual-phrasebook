@@ -12,7 +12,7 @@ export default class LocaleManager implements Injectable {
   private locale: AppLocale = AppLocale.EN
   private localeResolved: boolean = false;
   private isUpdating: boolean = false;
-  private onLocaleChangedCallback?: (locale: AppLocale) => void;
+  private localeChangedListeners: ((locale: AppLocale) => void)[] = [];
   @Resolve(PreferencesManager)
   private pm?: PreferencesManager;
 
@@ -28,7 +28,7 @@ export default class LocaleManager implements Injectable {
       } else {
         this.setCurrentLocale(appLocaleFromString(appLocaleStr));
         this.localeResolved = true;
-        this.onLocaleChangedCallback?.(this.locale);
+        this.localeChangedListeners.forEach(cb => cb(this.locale));
       }
     }).catch((err: BusinessError) => {
       Logger.error(`LocaleManager: updating app-local failed, error code: ${err.code}, message: ${err.message}.`)
@@ -37,17 +37,27 @@ export default class LocaleManager implements Injectable {
 
   /**
    * Registers a persistent observer that fires on every locale change, including initial async resolution.
-   * If initialization has already completed, the callback is invoked synchronously with the current locale.
+   * Multiple listeners are supported; registering the same callback twice is a no-op.
+   * If initialization has already completed, the callback is invoked immediately with the current locale.
    */
   setOnLocaleChanged(callback: (locale: AppLocale) => void): void {
-    this.onLocaleChangedCallback = callback;
+    if (!this.localeChangedListeners.includes(callback)) {
+      this.localeChangedListeners.push(callback);
+    }
     if (this.localeResolved) {
       callback(this.locale);
     }
   }
 
-  clearOnLocaleChanged(): void {
-    this.onLocaleChangedCallback = undefined;
+  clearOnLocaleChanged(callback?: (locale: AppLocale) => void): void {
+    if (callback) {
+      const index = this.localeChangedListeners.indexOf(callback);
+      if (index !== -1) {
+        this.localeChangedListeners.splice(index, 1);
+      }
+    } else {
+      this.localeChangedListeners = [];
+    }
   }
 
   /**
@@ -88,7 +98,7 @@ export default class LocaleManager implements Injectable {
       i18n.System.setAppPreferredLanguage(newLocale);
       this.setCurrentLocale(newLocale);
       this.localeResolved = true;
-      this.onLocaleChangedCallback?.(newLocale);
+      this.localeChangedListeners.forEach(cb => cb(newLocale));
       await this.setAppLocale(newLocale);
       Logger.info(`LocaleManager: locale changed to: ${newLocale}`)
     } catch (error) {
@@ -108,6 +118,6 @@ export default class LocaleManager implements Injectable {
   }
 
   onDispose(): void {
-    this.onLocaleChangedCallback = undefined;
+    this.localeChangedListeners = [];
   }
 }
