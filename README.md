@@ -11,10 +11,9 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
 # Preview
 
 <div>
-  <img src="./screenshots/preview_en_01.png" width="24%">
-  <img src="./screenshots/preview_en_02.png" width="24%">
-  <img src="./screenshots/preview_ar_01.png" width="24%">
-  <img src="./screenshots/preview_ar_02.png" width="24%">
+  <img src="./screenshots/1.png" width="25%">
+  <img src="./screenshots/2.png" width="25%">
+  <img src="./screenshots/3.png" width="25%">
 </div>
 
 > **Note:** Screenshots show the single-language UI from an earlier version. The current UI displays both languages on each card simultaneously.
