@@ -1,4 +1,4 @@
-import { PhraseModel, PhrasesGroup, PHRASES_GROUPS } from '../model/PhraseModel'
+import { PhrasesGroup, PHRASES_GROUPS } from '../model/PhraseModel'
 import { Resolve } from '../registry/ServiceRegistry';
 import LocaleManager from '../utils/LocaleManager';
 import { AppLocale } from '../model/AppLocale';

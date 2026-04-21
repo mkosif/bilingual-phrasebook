@@ -8,7 +8,7 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
 
 > **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
 
-## Preview
+# Preview
 
 <div>
   <img src="./screenshots/1.png" width="25%">
@@ -16,20 +16,18 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
   <img src="./screenshots/3.png" width="25%">
 </div>
 
-> **Note:** Screenshots show the single-language UI from an earlier version. The current UI displays both languages on each card simultaneously.
-
-## Use Cases
+# Use Cases
 
 Bilingual Phrasebook helps users quickly find and practice essential phrases in two languages, making it ideal for travel, language learning, and real-life conversations.
 
-## Tech Stack
+# Tech Stack
 
 - **Languages**: ArkTS, Typescript
-- **Frameworks**: HarmonyOS SDK 5.1.0(18)
+- **Frameworks**: HarmonyOS SDK 6.0.0(20)
 - **Tools**: DevEco Studio Version 5.1.0.828
 - **Libraries**: `@kit.ArkUI`, `@kit.AbilityKit`, `@kit.BasicServicesKit`, `@kit.LocalizationKit`, `@kit.ArkData`
 
-## Localization Kit Usage
+# Localization Kit Usage
 
 This app utilizes the **Localization Kit** to manage multi-language content:
 
@@ -45,7 +43,7 @@ Example file:
 
 - `src/main/ets/utils/LocaleManager.ets`
 
-## Dependency Injection (Registry-Based)
+# Dependency Injection (Registry-Based)
 
 This project includes a lightweight, custom **Dependency Injection (DI)** system, implemented with decorators and a
 central service registry.
@@ -66,7 +64,7 @@ This allows separation of concerns and improved testability for components like:
 - `LocaleManager`
 - ViewModels and utilities
 
-## Directory Structure
+# Directory Structure
 
 ```
 ├── entry/src/main/ets/
@@ -92,12 +90,12 @@ This allows separation of concerns and improved testability for components like:
 │      └──PhrasesViewModel.ets          // ViewModel managing phrases
 ```
 
-## Constraints and Restrictions
+# Constraints and Restrictions
 
 - Supported device: Huawei Watch 5
 - Supported locales: `en` and `ar`
 
-## License
+# License
 
 Bilingual Phrasebook is distributed under the terms of the MIT License.
 See the [license](/LICENSE) for more information.

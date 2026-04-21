@@ -39,6 +39,10 @@
     {
       "name": "margin_16",
       "value": "16vp"
+    },
+    {
+      "name": "title_letter_spacing",
+      "value": "1.5fp"
     }
   ]
 }
