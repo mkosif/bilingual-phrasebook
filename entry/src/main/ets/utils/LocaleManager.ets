@@ -7,7 +7,6 @@ import { Resolve } from '../registry/ServiceRegistry';
 import PreferencesManager from './preferences/PreferencesManager';
 import { PreferenceKeys } from './preferences/PreferenceKeys';
 
-
 export default class LocaleManager implements Injectable {
   private locale: AppLocale = AppLocale.EN
   private localeResolved: boolean = false;

@@ -1,5 +1,3 @@
-> **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
-
 # Bilingual Phrasebook
 
 A simple bilingual phrasebook app for HarmonyOS Next written in ArkTS.
@@ -8,7 +6,9 @@ BilingualPhrasebook is a multilingual app designed to help users quickly access 
 Each phrase card displays both languages simultaneously — the toggle button switches which language appears as primary (larger, top) and which appears as secondary (smaller, below).
 It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapts the UI direction based on the selected system locale.
 
-# Preview
+> **Note:** To access all shared projects, get information about environment setup, and view other guides, please visit [Explore-In-HMOS-Wearable Index](https://github.com/Explore-In-HMOS-Wearable/hmos-index).
+
+## Preview
 
 <div>
   <img src="./screenshots/1.png" width="25%">
@@ -18,23 +18,16 @@ It supports **RTL** and **LTR** layouts, utilizes localized resources, and adapt
 
 > **Note:** Screenshots show the single-language UI from an earlier version. The current UI displays both languages on each card simultaneously.
 
-# Use Cases
+## Use Cases
 
 Bilingual Phrasebook helps users quickly find and practice essential phrases in two languages, making it ideal for travel, language learning, and real-life conversations.
 
-# Technology
-
-## Stack
+## Tech Stack
 
 - **Languages**: ArkTS, Typescript
 - **Frameworks**: HarmonyOS SDK 5.1.0(18)
 - **Tools**: DevEco Studio Version 5.1.0.828
-- **Libraries**:
-    - `@kit.ArkUI`
-    - `@kit.AbilityKit`
-    - `@kit.BasicServicesKit`
-    - `@kit.LocalizationKit`
-    - `@kit.ArkData`
+- **Libraries**: `@kit.ArkUI`, `@kit.AbilityKit`, `@kit.BasicServicesKit`, `@kit.LocalizationKit`, `@kit.ArkData`
 
 ## Localization Kit Usage
 
@@ -73,7 +66,7 @@ This allows separation of concerns and improved testability for components like:
 - `LocaleManager`
 - ViewModels and utilities
 
-# Directory Structure
+## Directory Structure
 
 ```
 ├── entry/src/main/ets/
@@ -99,17 +92,12 @@ This allows separation of concerns and improved testability for components like:
 │      └──PhrasesViewModel.ets          // ViewModel managing phrases
 ```
 
-# Constraints and Restrictions
+## Constraints and Restrictions
 
-## Supported Devices
+- Supported device: Huawei Watch 5
+- Supported locales: `en` and `ar`
 
-- Huawei Watch 5
-
-## Supported Locales
-
-- Only supports two locales: `en` and `ar`
-
-# LICENSE
+## License
 
 Bilingual Phrasebook is distributed under the terms of the MIT License.
 See the [license](/LICENSE) for more information.
